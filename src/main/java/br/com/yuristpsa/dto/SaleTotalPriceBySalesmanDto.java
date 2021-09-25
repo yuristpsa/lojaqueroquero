@@ -1,6 +1,7 @@
 package br.com.yuristpsa.dto;
 
 import br.com.yuristpsa.domain.salesman.Salesman;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,13 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SaleCountBySalesmanDto {
+public class SaleTotalPriceBySalesmanDto {
 
     private Salesman salesman;
-    private long count;
+    private Double totalPrice;
 
-    public SaleCountBySalesmanDto(Salesman salesman, long count) {
+    public SaleTotalPriceBySalesmanDto(Salesman salesman, Double totalPrice) {
+        this.totalPrice = totalPrice;
         this.salesman = salesman;
-        this.count = count;
     }
 }

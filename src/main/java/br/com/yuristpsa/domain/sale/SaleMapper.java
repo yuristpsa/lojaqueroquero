@@ -28,6 +28,7 @@ public class SaleMapper {
                 .id(sale.getId())
                 .salesman(this.salesmanMapper.toSalesmanDto(sale.getSalesman()))
                 .saleItems(toSaleItemsDto(sale.getSaleItems()))
+                .totalPrice(sale.getTotalPrice())
                 .build();
     }
 
@@ -46,6 +47,7 @@ public class SaleMapper {
                 .id(saleDto.getId())
                 .salesman(this.salesmanMapper.toSalesmanEntity(saleDto.getSalesman()))
                 .saleItems(toSaleItemsEntity(saleDto.getSaleItems()))
+                .totalPrice(saleDto.getTotalPrice())
                 .build();
     }
 

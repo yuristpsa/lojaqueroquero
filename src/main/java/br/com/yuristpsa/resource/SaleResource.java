@@ -1,10 +1,12 @@
 package br.com.yuristpsa.resource;
 
 import br.com.yuristpsa.domain.sale.Sale;
-import br.com.yuristpsa.dto.SaleItemCountByProductDto;
+import br.com.yuristpsa.dto.SaleCountBySalesmanDto;
+import br.com.yuristpsa.dto.SaleItemTotalAmountByProductDto;
 import br.com.yuristpsa.domain.sale.SaleMapper;
 import br.com.yuristpsa.domain.sale.SaleService;
 import br.com.yuristpsa.dto.SaleDto;
+import br.com.yuristpsa.dto.SaleTotalPriceBySalesmanDto;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,22 +31,21 @@ public class SaleResource {
         return Response.status(Response.Status.OK).entity(this.saleMapper.toSaleDto(saleEntity)).build();
     }
 
-
-
-
-
-
-
-
-
-/*    @GET
-    public List<SaleCountBySalesmanDto> list() {
-        return this.saleService.findSaleCountBySalesmanDto();
-    }*/
-
     @GET
-    public List<SaleItemCountByProductDto> list() {
-        return this.saleService.findSaleItemCountGroupdByProductOrderByCountDesc();
+    @Path("/reports/best-selling-items")
+    public List<SaleItemTotalAmountByProductDto> getBestSellingItems() {
+        return this.saleService.findSaleItemCountGroupByProductOrderByCountDesc();
     }
 
+    @GET
+    @Path("/reports/best-sellers-by-sales-quantity")
+    public List<SaleCountBySalesmanDto> getBestSellersBySalesQuantity() {
+        return this.saleService.findSaleCountGroupBySalesmanOrderdByCountDesc();
+    }
+
+    @GET
+    @Path("/reports/best-sellers-by-value-sold")
+    public List<SaleTotalPriceBySalesmanDto> getBestSellersByValueSold() {
+        return this.saleService.findSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc();
+    }
 }

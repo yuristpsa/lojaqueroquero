@@ -22,6 +22,6 @@ public class Product implements BaseEntity {
     private String name;
 
     @Column(name = "price")
-    private Integer price;
+    private Double price;
 
 }

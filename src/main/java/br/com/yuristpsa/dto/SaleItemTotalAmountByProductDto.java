@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaleItemCountByProductDto {
+public class SaleItemTotalAmountByProductDto {
 
     private Product product;
     private long count;

@@ -42,18 +42,6 @@ public class Sale implements BaseEntity {
         this.saleItems = saleItems;
     }
 
-    private Double calculateTotalPrice(List<SaleItem> saleItems) {
-
-/*        return this.userList
-                .parallelStream()
-                .reduce(
-                        0, (partialAgeResult, user) -> partialAgeResult + user.getAge(), Integer::sum);*/
-
-
-
-        return null;
-    }
-
     private static class CustomSaleBuilder extends SaleBuilder {
 
         @Override

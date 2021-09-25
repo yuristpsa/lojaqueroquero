@@ -31,6 +31,10 @@ public class AbstractService<E extends BaseEntity, R extends PanacheRepository<E
         return repo.findByIdOptional(id).isPresent();
     }
 
+    public E findById(Long id) {
+        return repo.findById(id);
+    }
+
     public List<E> listAll() {
         return this.repo.listAll();
     }

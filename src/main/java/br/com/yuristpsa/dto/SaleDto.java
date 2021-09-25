@@ -16,5 +16,6 @@ public class SaleDto implements Serializable {
     private Long id;
     private SalesmanDto salesman;
     private List<SaleItemDto> saleItems = new ArrayList<>();
+    private Double totalPrice;
 
 }

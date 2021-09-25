@@ -13,6 +13,6 @@ public class ProductDto implements Serializable {
 
     private Long id;
     private String name;
-    private Integer price;
+    private Double price;
 
 }

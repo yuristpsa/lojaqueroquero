@@ -1,49 +1,62 @@
 package br.com.yuristpsa.domain.sale;
 
 import br.com.yuristpsa.base.AbstractService;
+import br.com.yuristpsa.domain.product.Product;
+import br.com.yuristpsa.domain.product.ProductService;
 import br.com.yuristpsa.dto.SaleCountBySalesmanDto;
-import br.com.yuristpsa.dto.SaleItemCountByProductDto;
+import br.com.yuristpsa.dto.SaleItemTotalAmountByProductDto;
+import br.com.yuristpsa.dto.SaleTotalPriceBySalesmanDto;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @ApplicationScoped
 public class SaleService extends AbstractService<Sale, SaleRepository> {
 
-    private final EntityManager entityManager;
+    private final ProductService productService;
 
     @Inject
-    public SaleService(SaleRepository repo, EntityManager entityManager) {
+    public SaleService(SaleRepository repo, ProductService productService) {
         super(repo);
-        this.entityManager = entityManager;
+        this.productService = productService;
     }
 
-    public SaleService(EntityManager entityManager) {
+    public SaleService(EntityManager entityManager, ProductService productService) {
         super();
-        this.entityManager = entityManager;
+        this.productService = productService;
     }
 
-    private final String QUERY_SALE_COUNT_BY_SALESMAN = "SELECT new br.com.yuristpsa.domain.sale.SaleCountBySalesmanDto(count(se), se.salesman) " +
-                                                        "FROM Sale se " +
-                                                        "GROUP BY se.salesman " +
-                                                        "ORDER BY count(se) DESC";
+    @Transactional
+    @Override
+    public Sale save(Sale sale) {
+        sale.setTotalPrice(calculateTotalPrice(sale));
+        return super.save(sale);
+    }
+
+    private Double calculateTotalPrice(Sale sale) {
+        return sale.getSaleItems().stream().mapToDouble(f -> {
+            Product product = f.getProduct();
+            if (Objects.isNull(f.getProduct().getPrice())) {
+                product = this.productService.findById(f.getProduct().getId());
+            }
+
+            return f.getAmount() * product.getPrice();
+        }).sum();
+    }
 
     public List<SaleCountBySalesmanDto> findSaleCountGroupBySalesmanOrderdByCountDesc() {
-        TypedQuery<SaleCountBySalesmanDto> q = this.entityManager.createQuery(QUERY_SALE_COUNT_BY_SALESMAN, SaleCountBySalesmanDto.class);
-        return q.getResultList();
+        return repo.findSaleCountGroupBySalesmanOrderdByCountDesc();
     }
 
-    private final String QUERY_SALE_ITEM_COUNT_BY_PRODUCT = "SELECT new br.com.yuristpsa.domain.sale.SaleItemCountByProductDto(si.product, sum(si.amount)) " +
-            "FROM SaleItem si " +
-            "GROUP BY si.product " +
-            "ORDER BY sum(si.amount) DESC";
-
-    public List<SaleItemCountByProductDto> findSaleItemCountGroupdByProductOrderByCountDesc() {
-        TypedQuery<SaleItemCountByProductDto> q = this.entityManager.createQuery(QUERY_SALE_ITEM_COUNT_BY_PRODUCT, SaleItemCountByProductDto.class);
-        return q.getResultList();
+    public List<SaleTotalPriceBySalesmanDto> findSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc() {
+        return repo.findSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc();
     }
 
+    public List<SaleItemTotalAmountByProductDto> findSaleItemCountGroupByProductOrderByCountDesc() {
+        return repo.findSaleItemCountGroupByProductOrderByCountDesc();
+    }
 }
