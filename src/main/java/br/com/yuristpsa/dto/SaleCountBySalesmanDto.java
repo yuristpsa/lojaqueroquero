@@ -1,4 +1,4 @@
-package br.com.yuristpsa.domain.sale;
+package br.com.yuristpsa.dto;
 
 import br.com.yuristpsa.domain.salesman.Salesman;
 import lombok.AllArgsConstructor;

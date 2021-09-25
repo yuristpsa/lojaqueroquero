@@ -14,14 +14,8 @@ import javax.persistence.*;
 public class Product implements BaseEntity {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "sequence_product_id"
-    )
-    @SequenceGenerator(
-            name =  "sequence_product_id",
-            sequenceName = "sequence_product"
-    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "product")
+    @TableGenerator(name="product", table="sequence", schema="public")
     private Long id;
 
     @Column(name = "name")

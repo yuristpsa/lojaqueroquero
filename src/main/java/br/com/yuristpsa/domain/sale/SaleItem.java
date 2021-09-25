@@ -18,14 +18,8 @@ import java.util.List;
 public class SaleItem implements BaseEntity {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "sequence_sale_item_id"
-    )
-    @SequenceGenerator(
-            name =  "sequence_sale_item_id",
-            sequenceName = "sequence_sale_item"
-    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "sale_item")
+    @TableGenerator(name="sale_item", table="sequence", schema="public")
     private Long id;
 
     @ManyToOne

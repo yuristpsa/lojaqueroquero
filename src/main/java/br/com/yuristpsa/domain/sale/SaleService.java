@@ -1,11 +1,12 @@
 package br.com.yuristpsa.domain.sale;
 
 import br.com.yuristpsa.base.AbstractService;
+import br.com.yuristpsa.dto.SaleCountBySalesmanDto;
+import br.com.yuristpsa.dto.SaleItemCountByProductDto;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 

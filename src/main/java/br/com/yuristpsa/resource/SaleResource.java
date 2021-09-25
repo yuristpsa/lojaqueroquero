@@ -1,7 +1,7 @@
 package br.com.yuristpsa.resource;
 
 import br.com.yuristpsa.domain.sale.Sale;
-import br.com.yuristpsa.domain.sale.SaleItemCountByProductDto;
+import br.com.yuristpsa.dto.SaleItemCountByProductDto;
 import br.com.yuristpsa.domain.sale.SaleMapper;
 import br.com.yuristpsa.domain.sale.SaleService;
 import br.com.yuristpsa.dto.SaleDto;

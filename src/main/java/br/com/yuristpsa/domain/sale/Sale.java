@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,19 +19,16 @@ import java.util.Objects;
 public class Sale implements BaseEntity {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "sequence_sale_id"
-    )
-    @SequenceGenerator(
-            name =  "sequence_sale_id",
-            sequenceName = "sequence_sale"
-    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "sale")
+    @TableGenerator(name="sale", table="sequence", schema="public")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "salesman_id", nullable = false)
     private Salesman salesman;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SaleItem> saleItems = new ArrayList<>();
@@ -42,6 +40,18 @@ public class Sale implements BaseEntity {
     public void setSaleItems(List<SaleItem> saleItems) {
         saleItems.forEach(f -> f.setSale(this));
         this.saleItems = saleItems;
+    }
+
+    private Double calculateTotalPrice(List<SaleItem> saleItems) {
+
+/*        return this.userList
+                .parallelStream()
+                .reduce(
+                        0, (partialAgeResult, user) -> partialAgeResult + user.getAge(), Integer::sum);*/
+
+
+
+        return null;
     }
 
     private static class CustomSaleBuilder extends SaleBuilder {
