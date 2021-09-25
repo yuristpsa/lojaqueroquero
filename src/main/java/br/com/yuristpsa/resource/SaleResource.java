@@ -1,14 +1,12 @@
 package br.com.yuristpsa.resource;
 
-import br.com.yuristpsa.domain.sale.Sale;
-import br.com.yuristpsa.domain.sale.SaleRepository;
-import br.com.yuristpsa.domain.sale.SaleService;
+import br.com.yuristpsa.domain.sale.*;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/sales")
 public class SaleResource {
@@ -22,18 +20,17 @@ public class SaleResource {
     @POST
     public Response create(Sale sale) {
         Sale saleEntity = this.saleService.save(sale);
-//        return Response.status(Response.Status.OK).entity(saleEntity).build();
-        return null;
+        return Response.status(Response.Status.OK).entity(saleEntity).build();
     }
 
-    @Inject
-    SaleRepository saleRepository;
+/*    @GET
+    public List<SaleCountBySalesmanDto> list() {
+        return this.saleService.findSaleCountBySalesmanDto();
+    }*/
 
     @GET
-    public Response list(Sale sale) {
-        //saleRepository.findSalesCountBySalesman();
-//        return Response.status(Response.Status.OK).entity(saleEntity).build();
-        return null;
+    public List<SaleItemCountByProductDto> list() {
+        return this.saleService.findSaleItemCountGroupdByProductOrderByCountDesc();
     }
 
 }
