@@ -7,4 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class SalesmanRepository implements PanacheRepository<Salesman> {
 
+
+
 }

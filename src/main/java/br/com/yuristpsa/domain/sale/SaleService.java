@@ -1,21 +1,20 @@
 package br.com.yuristpsa.domain.sale;
 
 import br.com.yuristpsa.base.AbstractService;
-import br.com.yuristpsa.domain.product.Product;
-import br.com.yuristpsa.domain.product.ProductRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class SaleService extends AbstractService<Product, ProductRepository> {
+public class SaleService extends AbstractService<Sale, SaleRepository> {
 
     @Inject
-    public SaleService(ProductRepository repo) {
+    public SaleService(SaleRepository repo) {
         super(repo);
     }
 
     public SaleService() {
         super();
     }
+
 }

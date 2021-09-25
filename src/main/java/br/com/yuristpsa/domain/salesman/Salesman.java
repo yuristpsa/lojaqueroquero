@@ -1,14 +1,16 @@
 package br.com.yuristpsa.domain.salesman;
 
 import br.com.yuristpsa.base.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Salesman implements BaseEntity {
 
     @Id
