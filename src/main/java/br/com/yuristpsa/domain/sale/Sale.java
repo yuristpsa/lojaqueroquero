@@ -1,7 +1,6 @@
 package br.com.yuristpsa.domain.sale;
 
 import br.com.yuristpsa.base.BaseEntity;
-import br.com.yuristpsa.domain.product.Product;
 import br.com.yuristpsa.domain.salesman.Salesman;
 import lombok.*;
 
@@ -19,7 +18,14 @@ import java.util.Objects;
 public class Sale implements BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "sequence_sale_id"
+    )
+    @SequenceGenerator(
+            name =  "sequence_sale_id",
+            sequenceName = "sequence_sale"
+    )
     private Long id;
 
     @ManyToOne
@@ -27,18 +33,24 @@ public class Sale implements BaseEntity {
     private Salesman salesman;
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SaleItem> saleItens = new ArrayList<>();
+    private List<SaleItem> saleItems = new ArrayList<>();
 
-    public void setSaleItens(List<SaleItem> saleItens) {
-        saleItens.forEach(f -> f.setSale(this));
-        this.saleItens = saleItens;
+    public static SaleBuilder builder() {
+        return new CustomSaleBuilder();
     }
 
-    public void addSaleItem(SaleItem saleItem) {
-        if (Objects.isNull(saleItens))
-            saleItens = new ArrayList<>();
+    public void setSaleItems(List<SaleItem> saleItems) {
+        saleItems.forEach(f -> f.setSale(this));
+        this.saleItems = saleItems;
+    }
 
-        saleItens.add(saleItem);
-        saleItem.setSale(this);
+    private static class CustomSaleBuilder extends SaleBuilder {
+
+        @Override
+        public Sale build() {
+            Sale sale = super.build();
+            sale.setSaleItems(sale.getSaleItems());
+            return sale;
+        }
     }
 }

@@ -1,21 +1,18 @@
 package br.com.yuristpsa.base;
 
-import br.com.yuristpsa.base.BaseEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import lombok.NoArgsConstructor;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+@NoArgsConstructor
 public class AbstractService<E extends BaseEntity, R extends PanacheRepository<E>> {
 
     protected R repo;
 
     public AbstractService(R repo) {
         this.repo = repo;
-    }
-
-    public AbstractService() {
-
     }
 
     @Transactional
@@ -28,6 +25,10 @@ public class AbstractService<E extends BaseEntity, R extends PanacheRepository<E
     public void delete(Long id) {
         E entity = repo.findById(id);
         repo.delete(entity);
+    }
+
+    public boolean exists(Long id) {
+        return repo.findByIdOptional(id).isPresent();
     }
 
     public List<E> listAll() {

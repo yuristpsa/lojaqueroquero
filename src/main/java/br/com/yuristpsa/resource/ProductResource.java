@@ -1,37 +1,46 @@
 package br.com.yuristpsa.resource;
 
 import br.com.yuristpsa.domain.product.Product;
+import br.com.yuristpsa.domain.product.ProductMapper;
 import br.com.yuristpsa.domain.product.ProductService;
-import br.com.yuristpsa.domain.salesman.Salesman;
-import br.com.yuristpsa.domain.salesman.SalesmanService;
+import br.com.yuristpsa.dto.ProductDto;
+import com.arjuna.ats.jta.exceptions.NotImplementedException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/products")
 public class ProductResource {
 
     private final ProductService productService;
+    private final ProductMapper productMapper;
 
-    public ProductResource(ProductService productService) {
+    public ProductResource(ProductService productService,
+                           ProductMapper productMapper) {
         this.productService = productService;
+        this.productMapper = productMapper;
     }
 
     @POST
-    public Response create(Product product) {
-        Product productEntity = this.productService.save(product);
-        return Response.status(Response.Status.OK).entity(product).build();
+    public Response create(ProductDto productDto) {
+        Product productEntity = this.productService.save(this.productMapper.toProductEntity(productDto));
+        return Response.status(Response.Status.OK).entity(this.productMapper.toProductDto(productEntity)).build();
     }
 
-/*    @PUT
+    @PUT
     @Path("{id}")
-    public Response update(@PathParam("id") Long id, Salesman salesman) {
-//        Salesman salesmanUpdated = this.salesmanService.save(id, salesman);
-//        return Response.status(Response.Status.OK).entity(salesmanUpdated).build();
+    public Response update(@PathParam("id") Long id, ProductDto productDto) {
+        if (!productService.exists(id)) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Registro não encontrado").build();
+        }
 
-        return null;
-    }*/
+        Product productEntity = this.productMapper.toProductEntity(productDto);
+        productEntity.setId(id);
+
+        return Response.status(Response.Status.OK).entity(this.productMapper.toProductDto(productService.save(productEntity))).build();
+    }
 
     @DELETE
     @Path("{id}")
@@ -41,8 +50,10 @@ public class ProductResource {
     }
 
     @GET
-    public List<Product> list() {
-        return this.productService.listAll();
+    public List<ProductDto> list() {
+        return this.productService.listAll()
+                .stream()
+                .map(this.productMapper::toProductDto)
+                .collect(Collectors.toList());
     }
-
 }
