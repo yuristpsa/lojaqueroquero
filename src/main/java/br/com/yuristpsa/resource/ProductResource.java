@@ -6,6 +6,7 @@ import br.com.yuristpsa.domain.product.ProductService;
 import br.com.yuristpsa.dto.ProductDto;
 import com.arjuna.ats.jta.exceptions.NotImplementedException;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -31,14 +32,10 @@ public class ProductResource {
 
     @PUT
     @Path("{id}")
+    @Transactional
     public Response update(@PathParam("id") Long id, ProductDto productDto) {
-        if (!productService.exists(id)) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Registro não encontrado").build();
-        }
-
-        Product productEntity = this.productMapper.toProductEntity(productDto);
-        productEntity.setId(id);
-
+        Product productEntity = productService.findById(id);
+        productEntity = this.productService.save(this.productMapper.toProductEntity(productEntity, productDto));
         return Response.status(Response.Status.OK).entity(this.productMapper.toProductDto(productService.save(productEntity))).build();
     }
 

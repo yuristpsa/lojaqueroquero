@@ -5,6 +5,7 @@ import br.com.yuristpsa.domain.salesman.SalesmanMapper;
 import br.com.yuristpsa.domain.salesman.SalesmanService;
 import br.com.yuristpsa.dto.SalesmanDto;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -30,14 +31,10 @@ public class SalesmanResource {
 
     @PUT
     @Path("{id}")
+    @Transactional
     public Response update(@PathParam("id") Long id, SalesmanDto salesmanDto) {
-        if (!salesmanService.exists(id)) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Registro não encontrado").build();
-        }
-
-        Salesman salesmanEntity = this.salesmanMapper.toSalesmanEntity(salesmanDto);
-        salesmanEntity.setId(id);
-
+        Salesman salesmanEntity = salesmanService.findById(id);
+        salesmanEntity = this.salesmanService.save(this.salesmanMapper.toSalesmanEntity(salesmanEntity, salesmanDto));
         return Response.status(Response.Status.OK).entity(this.salesmanMapper.toSalesmanDto(salesmanService.save(salesmanEntity))).build();
     }
 
@@ -61,5 +58,4 @@ public class SalesmanResource {
     public Salesman findByRegistration(@PathParam("registration") String registration) {
         return this.salesmanService.findByRegistration(registration);
     }
-
 }
