@@ -1,20 +1,23 @@
 package br.com.yuristpsa.dto;
 
-import br.com.yuristpsa.domain.salesman.Salesman;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class SaleCountBySalesmanDto {
+@Builder
+public class SaleCountBySalesmanDto implements Serializable {
 
-    private Salesman salesman;
+    private SalesmanDto salesmanDto;
     private long count;
 
-    public SaleCountBySalesmanDto(Salesman salesman, long count) {
-        this.salesman = salesman;
+    public SaleCountBySalesmanDto(SalesmanDto salesmanDto, long count) {
+        this.salesmanDto = salesmanDto;
         this.count = count;
     }
 }
