@@ -35,9 +35,9 @@ public class SaleResourceTest {
                 .when().get("/sales/reports/best-selling-items")
                 .then()
                 .statusCode(200)
-                .body(is("[{\"count\":30,\"product\":{\"id\":1,\"name\":\"Mouse Gamer Redragon Cobra\",\"price\":99.0}}," +
-                        "{\"count\":20,\"product\":{\"id\":2,\"name\":\"Aspirador de Pó Robô\",\"price\":1500.0}}," +
-                        "{\"count\":10,\"product\":{\"id\":1,\"name\":\"Memória Kingston Fury Beast, 8GB, 2666MHz, DDR4\",\"price\":289.0}}]"));
+                .body(is("[{\"count\":30,\"productDto\":{\"id\":1,\"name\":\"Mouse Gamer Redragon Cobra\",\"price\":99.0}}," +
+                        "{\"count\":20,\"productDto\":{\"id\":2,\"name\":\"Aspirador de Pó Robô\",\"price\":1500.0}}," +
+                        "{\"count\":10,\"productDto\":{\"id\":1,\"name\":\"Memória Kingston Fury Beast, 8GB, 2666MHz, DDR4\",\"price\":289.0}}]"));
     }
 
     @Test
