@@ -23,4 +23,10 @@ public class SalesmanMapper {
                 .build();
     }
 
+    public Salesman toSalesmanEntity(Salesman salesmanEntity, SalesmanDto salesmanDto) {
+        salesmanEntity.setName(salesmanDto.getName());
+        salesmanEntity.setRegistration(salesmanDto.getRegistration());
+        return salesmanEntity;
+    }
+
 }

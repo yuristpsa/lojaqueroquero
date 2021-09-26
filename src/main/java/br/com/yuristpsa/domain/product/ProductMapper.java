@@ -22,4 +22,10 @@ public class ProductMapper {
                 .price(productDto.getPrice())
                 .build();
     }
+
+    public Product toProductEntity(Product productEntity, ProductDto productDto) {
+        productEntity.setPrice(productDto.getPrice());
+        productEntity.setName(productDto.getName());
+        return productEntity;
+    }
 }
