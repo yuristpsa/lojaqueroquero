@@ -31,7 +31,7 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 
 #### Cadastrar novo vendedor
 
-`POST /salesman`
+`POST /salesmans`
 
 ```json
 {
@@ -41,7 +41,7 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 ```
 #### Atualizar vendedor existente
 
-`PUT /salesman/{id}`
+`PUT /salesmans/{id}`
 
 ```json
 {
@@ -51,8 +51,12 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 
 #### Excluir vendedor
 
-`DEL /salesman/{id}`
+`DEL /salesmans/{id}`
 
 #### Buscar por matrícula
 
-`GET /salesman/{matricula}`
+`GET /salesmans/{matricula}`
+
+#### Listar todos
+
+`GET /salesmans`
