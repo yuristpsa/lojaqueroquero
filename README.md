@@ -1,10 +1,15 @@
-# lojaqueroquero Project
+# CRUD REST com Quarkus
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Projeto desenvolvido com Quarkus que implementa a seguintes funcionalidades:
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+- Cadastrar, alterar, buscar por matrcula e listar vendedores
+- Cadastrar, alterar e listar produtos
+- Cadastrar venda, uma venda é definida por um vendedor e um ou mais itens
+  - Listar vendedores ordenados por maior número de vendas
+  - Listar vendedores ordenados por maior valor total vendido
+  - Listar itens ordenados por maior quantidade de vendas
 
-## Running the application in dev mode
+## Executando a aplicação em modo de desenvolvimento
 
 You can run your application in dev mode that enables live coding using:
 ```shell script
