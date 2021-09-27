@@ -45,7 +45,7 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 
 ```json
 {
-	 "name": "Yuri Stapassoli",
+	 "name": "Yuri Stapassoli"
 }
 ```
 
@@ -60,3 +60,33 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 #### Listar todos
 
 `GET /salesmans`
+
+### CRUD Produto
+
+#### Cadastrar novo produto
+
+`POST /products`
+
+```json
+{
+	"name": "Aspirador de Pó Robô",
+	"price": "1000"
+}
+```
+#### Atualizar produto existente
+
+`PUT /products/{id}`
+
+```json
+{
+	"price": 900
+}
+```
+
+#### Excluir produto
+
+`DEL /products/{id}`
+
+#### Listar todos
+
+`GET /products`
