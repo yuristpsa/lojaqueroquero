@@ -2,7 +2,7 @@
 
 Projeto desenvolvido com Quarkus que implementa a seguintes funcionalidades:
 
-- Cadastrar, alterar, buscar por matrcula e listar vendedores
+- Cadastrar, alterar, buscar por matrícula e listar vendedores
 - Cadastrar, alterar e listar produtos
 - Cadastrar venda, uma venda é definida por um vendedor e um ou mais itens
   - Listar vendedores ordenados por maior número de vendas
@@ -53,3 +53,6 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 
 `DEL /salesman/{id}`
 
+#### Buscar por matrícula
+
+`GET /salesman/{matricula}`
