@@ -11,53 +11,41 @@ Projeto desenvolvido com Quarkus que implementa a seguintes funcionalidades:
 
 ## Executando a aplicação em modo de desenvolvimento
 
-You can run your application in dev mode that enables live coding using:
+1. Na interface de linha de comando, navegue até o diretório docker e execute o comando para iniciar docker-compose. Na primeira vez que for executado, será feito o build da imagem do postgresql contendo o script de inicialização responsável pela criação do usuário do banco e concessão de acesso.
+
 ```shell script
-./mvnw compile quarkus:dev
+docker-compose up -d
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+2. Ainda na interface de linha de comando, navegue até o diretório raiz da aplicação e execute o comando abaixo para inicializar a aplicação em modo de desenvolvimento.
 
-## Packaging and running the application
-
-The application can be packaged using:
 ```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+mvn install quarkus:dev
 ```
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+## Exemplos de Chamadas
 
-## Creating a native executable
+Nesta seção são expostas as instruções para realização de cada uma das possíveis chamadas:
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
+### CRUD Vendedor
+
+#### Cadastrar novo vendedor
+
+`POST /salesman`
+
+```json
+{
+	 "name": "Yuri Stapassoli de Sá",
+	 "registration": "yuristpsa"
+}
+```
+#### Atualizar vendedor existente
+
+`POST /salesman/{id}`
+
+```json
+{
+	 "name": "Yuri Stapassoli",
+}
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/lojaqueroquero-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
-
-## Related Guides
-
-- RESTEasy JAX-RS ([guide](https://quarkus.io/guides/rest-json)): REST endpoint framework implementing JAX-RS and more
-
-## Provided Code
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
