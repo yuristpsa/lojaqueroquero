@@ -112,7 +112,15 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 	]
 }
 ```
-#### Lista de produtos ordenados pelos mais vendidos
+#### Lista de produtos ordenado pelos mais vendidos
 
 `GET /sales/reports/best-selling-items`
+
+#### Lista dos vendedores por maior número de vendas
+
+`GET /sales/reports/best-sellers-by-sales-quantity`
+
+#### Lista dos vendedores por valor vendido
+
+`GET /sales/reports/best-sellers-by-value-sold`
 
