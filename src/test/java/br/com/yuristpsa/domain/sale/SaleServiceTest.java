@@ -1,5 +1,9 @@
 package br.com.yuristpsa.domain.sale;
 
+import br.com.yuristpsa.domain.product.Product;
+import br.com.yuristpsa.domain.product.ProductService;
+import br.com.yuristpsa.domain.salesman.Salesman;
+import br.com.yuristpsa.domain.salesman.SalesmanService;
 import br.com.yuristpsa.dto.SaleCountBySalesmanDto;
 import br.com.yuristpsa.dto.SaleItemTotalAmountByProductDto;
 import br.com.yuristpsa.dto.SaleTotalPriceBySalesmanDto;
@@ -7,6 +11,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
@@ -14,14 +19,21 @@ import java.util.List;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
-public class SaleRepositoryTest {
+public class SaleServiceTest {
 
     @Inject
-    SaleRepository saleRepository;
+    SaleService saleService;
+
+    @Inject
+    SalesmanService salesmanService;
+
+    @Inject
+    ProductService productService;
 
     @Test
+    @Order(1)
     public void testFindSaleCountGroupBySalesmanOrderdByCountDesc() {
-        List<SaleCountBySalesmanDto> salesCountBySalesman = saleRepository.findSaleCountGroupBySalesmanOrderdByCountDesc();
+        List<SaleCountBySalesmanDto> salesCountBySalesman = saleService.findSaleCountGroupBySalesmanOrderdByCountDesc();
 
         SaleCountBySalesmanDto saleCount = salesCountBySalesman.get(0);
         Assertions.assertEquals(3, saleCount.getCount());
@@ -37,8 +49,9 @@ public class SaleRepositoryTest {
     }
 
     @Test
+    @Order(2)
     public void testFindSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc() {
-        List<SaleTotalPriceBySalesmanDto> salesTotalPriceBySalesman = saleRepository.findSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc();
+        List<SaleTotalPriceBySalesmanDto> salesTotalPriceBySalesman = saleService.findSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc();
 
         SaleTotalPriceBySalesmanDto saleCount = salesTotalPriceBySalesman.get(0);
         Assertions.assertEquals(113940.0, saleCount.getTotalPrice());
@@ -54,8 +67,9 @@ public class SaleRepositoryTest {
     }
 
     @Test
+    @Order(3)
     public void testFindSaleItemCountGroupByProductOrderByCountDesc() {
-        List<SaleItemTotalAmountByProductDto> salesItemTotalAmountByProduct = saleRepository.findSaleItemCountGroupByProductOrderByCountDesc();
+        List<SaleItemTotalAmountByProductDto> salesItemTotalAmountByProduct = saleService.findSaleItemCountGroupByProductOrderByCountDesc();
 
         SaleItemTotalAmountByProductDto saleCount = salesItemTotalAmountByProduct.get(0);
         Assertions.assertEquals(270, saleCount.getCount());
@@ -68,6 +82,30 @@ public class SaleRepositoryTest {
         saleCount = salesItemTotalAmountByProduct.get(2);
         Assertions.assertEquals(35, saleCount.getCount());
         Assertions.assertEquals("Memória Kingston Fury Beast, 8GB, 2666MHz, DDR4", saleCount.getProductDto().getName());
+    }
+
+    @Test
+    @Order(4)
+    public void testSaveSale() {
+        Salesman salesman = this.salesmanService.findById(1L);
+        Product product = this.productService.findById(1L);
+
+        Sale sale = Sale.builder()
+                .salesman(salesman)
+                .saleItems(List.of(
+                        SaleItem.builder()
+                                .product(product)
+                                .amount(5)
+                                .build()
+                ))
+                .build();
+
+        sale = this.saleService.save(sale);
+        Assertions.assertNotNull(sale.getId());
+        Assertions.assertEquals(salesman, sale.getSalesman());
+        Assertions.assertEquals(5, sale.getSaleItems().get(0).getAmount());
+        Assertions.assertEquals(product, sale.getSaleItems().get(0).getProduct());
+        Assertions.assertEquals(product.getPrice() * sale.getSaleItems().get(0).getAmount(), sale.getTotalPrice());
     }
 
 }

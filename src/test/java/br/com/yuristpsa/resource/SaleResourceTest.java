@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @QuarkusTest
@@ -27,6 +28,7 @@ public class SaleResourceTest {
         when(saleService.findSaleItemCountGroupByProductOrderByCountDesc()).thenReturn(mockFactory.createSaleItemTotalAmountByProductDtoList());
         when(saleService.findSaleCountGroupBySalesmanOrderdByCountDesc()).thenReturn(mockFactory.createSaleCountBySalesmanDtoList());
         when(saleService.findSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc()).thenReturn(mockFactory.createSaleTotalPriceBySalesmanDtoList());
+        when(saleService.save(any())).thenReturn(mockFactory.createSale());
     }
 
     @Test

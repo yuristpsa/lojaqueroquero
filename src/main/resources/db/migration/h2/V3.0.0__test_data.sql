@@ -36,3 +36,19 @@ insert into sale_item(sale_id, id, product_id, amount) values (5, 9, 3, 5);
 --#Sale 06
 insert into sale(id, salesman_id, total_price) values (6, 3, 7500.00);
 insert into sale_item(sale_id, id, product_id, amount) values (6, 10, 2, 5);
+
+update sequence
+set next_val = (select max(id) from product)
+where sequence_name = 'product';
+
+update sequence
+set next_val = (select max(id) from salesman)
+where sequence_name = 'salesman';
+
+update sequence
+set next_val = (select max(id) from sale)
+where sequence_name = 'sale';
+
+update sequence
+set next_val = (select max(id) from sale_item)
+where sequence_name = 'sale_item';

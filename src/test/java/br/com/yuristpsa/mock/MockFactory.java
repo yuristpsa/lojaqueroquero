@@ -1,10 +1,10 @@
 package br.com.yuristpsa.mock;
 
 import br.com.yuristpsa.domain.product.Product;
+import br.com.yuristpsa.domain.sale.Sale;
+import br.com.yuristpsa.domain.sale.SaleItem;
 import br.com.yuristpsa.domain.salesman.Salesman;
-import br.com.yuristpsa.dto.SaleCountBySalesmanDto;
-import br.com.yuristpsa.dto.SaleItemTotalAmountByProductDto;
-import br.com.yuristpsa.dto.SaleTotalPriceBySalesmanDto;
+import br.com.yuristpsa.dto.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Arrays;
@@ -76,5 +76,26 @@ public class MockFactory {
                                 .registration("ANP")
                                 .build(), 500.0)
         );
+    }
+
+    public Sale createSale() {
+        return Sale.builder()
+                .salesman(Salesman.builder()
+                        .id(1L)
+                        .name("Yuri Stapassoli de Sá")
+                        .build())
+                .saleItems(Arrays.asList(
+                        SaleItem.builder()
+                                .id(1L)
+                                .amount(1)
+                                .product(Product.builder()
+                                        .id(1L)
+                                        .name("Aspirador de Pó Robô")
+                                        .price(1000.0)
+                                        .build())
+                                .build()
+                ))
+                .totalPrice(1000.0)
+                .build();
     }
 }
