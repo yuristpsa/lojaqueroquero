@@ -11,7 +11,7 @@ Projeto desenvolvido com Quarkus que implementa a seguintes funcionalidades:
 
 ## Executando a aplicação em modo de desenvolvimento
 
-1. Na interface de linha de comando, navegue até o diretório docker e execute o comando para iniciar docker-compose. Na primeira vez que for executado, será feito o build da imagem do postgresql contendo o script de inicialização responsável pela criação do usuário do banco e concessão de acesso.
+1. Na interface de linha de comando, navegue até o diretório /src/main/docker e execute o comando para iniciar docker-compose. Na primeira vez que for executado, será feito o build da imagem do postgresql contendo o script de inicialização responsável pela criação do usuário do banco e concessão de acesso.
 
 ```shell script
 docker-compose up -d
