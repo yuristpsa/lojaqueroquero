@@ -23,5 +23,7 @@ CREATE TABLE public.sale_item (
 	amount int NOT NULL
 );
 
-
+ALTER TABLE sale ADD CONSTRAINT fk_sale_salesman FOREIGN KEY (salesman_id) REFERENCES salesman(id);
+ALTER TABLE sale_item ADD CONSTRAINT fk_sale_item_product FOREIGN KEY (product_id) REFERENCES product(id);
+ALTER TABLE sale_item ADD CONSTRAINT fk_sale_item_sale FOREIGN KEY (sale_id) REFERENCES sale(id);
 
