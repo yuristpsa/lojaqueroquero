@@ -90,3 +90,29 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 #### Listar todos
 
 `GET /products`
+
+### Cadastro e relatórios de vendas
+
+#### Cadastrar nova venda
+
+`POST /sales`
+
+```json
+{
+	"salesman": {
+		"id": 1
+	},
+	"saleItems": [
+		{
+			"product": {
+				"id": 1
+			},
+			"amount": 5
+		}	
+	]
+}
+```
+#### Lista de produtos ordenados pelos mais vendidos
+
+`GET /sales/reports/best-selling-items`
+
