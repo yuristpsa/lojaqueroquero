@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @QuarkusTest
@@ -31,7 +32,6 @@ public class SaleServiceTest {
     ProductService productService;
 
     @Test
-    @Order(1)
     public void testFindSaleCountGroupBySalesmanOrderdByCountDesc() {
         List<SaleCountBySalesmanDto> salesCountBySalesman = saleService.findSaleCountGroupBySalesmanOrderdByCountDesc();
 
@@ -49,7 +49,6 @@ public class SaleServiceTest {
     }
 
     @Test
-    @Order(2)
     public void testFindSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc() {
         List<SaleTotalPriceBySalesmanDto> salesTotalPriceBySalesman = saleService.findSaleTotalPriceGroupBySalesmanOrderdByTotalPriceDesc();
 
@@ -67,7 +66,6 @@ public class SaleServiceTest {
     }
 
     @Test
-    @Order(3)
     public void testFindSaleItemCountGroupByProductOrderByCountDesc() {
         List<SaleItemTotalAmountByProductDto> salesItemTotalAmountByProduct = saleService.findSaleItemCountGroupByProductOrderByCountDesc();
 
@@ -85,7 +83,7 @@ public class SaleServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Transactional
     public void testSaveSale() {
         Salesman salesman = this.salesmanService.findById(1L);
         Product product = this.productService.findById(1L);
@@ -106,6 +104,8 @@ public class SaleServiceTest {
         Assertions.assertEquals(5, sale.getSaleItems().get(0).getAmount());
         Assertions.assertEquals(product, sale.getSaleItems().get(0).getProduct());
         Assertions.assertEquals(product.getPrice() * sale.getSaleItems().get(0).getAmount(), sale.getTotalPrice());
+
+        saleService.delete(sale.getId());
     }
 
 }

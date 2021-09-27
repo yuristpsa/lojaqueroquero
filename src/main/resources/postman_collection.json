@@ -1,0 +1,329 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Desafio Codebrain",
+		"_postman_id": "f6786256-c31b-cea4-8cdb-3785ba5707ea",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Salesman",
+			"description": "",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"url": "http://localhost:8080/salesmans",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Yuri Stapassoli de Sá\",\n\t \"registration\": \"yuristpsa\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"url": "http://localhost:8080/salesmans/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Arthur Shopenhauer\",\n\t \"registration\": \"ARTSR\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"url": "http://localhost:8080/salesmans/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"request": {
+						"url": "http://localhost:8080/salesmans",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Yuri\",\n\t \"lastName\": \"Stapassoli de Sá\",\n\t \"document\": \"055.900.509-10\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "FIND BY REGISTRATION",
+					"request": {
+						"url": "http://localhost:8080/salesmans/yuristpsa",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Yuri\",\n\t \"lastName\": \"Stapassoli de Sá\",\n\t \"document\": \"055.900.509-10\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"description": "",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"url": "http://localhost:8080/products",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Aspirador de Pó Robô\",\n\t \"price\": \"1000\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"url": "http://localhost:8080/products/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Placa Mãe new\",\n    \"price\": 1000\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"url": "http://localhost:8080/products/2",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"request": {
+						"url": "http://localhost:8080/products",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Yuri\",\n\t \"lastName\": \"Stapassoli de Sá\",\n\t \"document\": \"055.900.509-10\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sale",
+			"description": "",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"url": "http://localhost:8080/sales",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"salesman\": {\n\t\t\"id\": 1\n\t},\n\t\"saleItems\": [\n\t\t{\n\t\t\t\"product\": {\n\t\t\t\t\"id\": 1\n\t\t\t},\n\t\t\t\"amount\": 5\n\t\t}\t\n\t]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"url": "http://localhost:8080/products/13",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Arthus\",\n\t \"lastName\": \"Shopenhauer\",\n\t \"document\": \"055.900.509-10\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"url": "http://localhost:8080/products/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Lista de itens mais vendidos",
+					"request": {
+						"url": "http://localhost:8080/sales/reports/best-selling-items",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Yuri\",\n\t \"lastName\": \"Stapassoli de Sá\",\n\t \"document\": \"055.900.509-10\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Lista dos vendedores por maior número de vendas",
+					"request": {
+						"url": "http://localhost:8080/sales/reports/best-sellers-by-sales-quantity",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Yuri\",\n\t \"lastName\": \"Stapassoli de Sá\",\n\t \"document\": \"055.900.509-10\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Lista dos vendedores por valor ($$) vendido",
+					"request": {
+						"url": "http://localhost:8080/sales/reports/best-sellers-by-value-sold",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"name\": \"Yuri\",\n\t \"lastName\": \"Stapassoli de Sá\",\n\t \"document\": \"055.900.509-10\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

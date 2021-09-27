@@ -2,13 +2,14 @@ version: '3.6'
 services:
 
 #  customer:
-#    image: quarkus/customer:latest
+#    image: quarkus/lojaqueroquero:latest
 #    build:
 #      context: ./
 #      dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
 #    environment:
-#      QUARKUS_DATASOURCE_URL: jdbc:postgresql://postgres:5432/customer
-#      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#      DATASOURCE_URL: jdbc:postgresql://postgres:5432/lojaqueroquero
+#      DATASOURCE_USERNAME: lojaqueroquero
+#      DATASOURCE_PASSWORD: strongpassword
 #    networks:
 #      - microservices
 #    ports:
@@ -22,49 +23,13 @@ services:
     build: postgres
     environment:
       POSTGRES_USER: lojaqueroquero
-      POSTGRES_PASSWORD: codebrain
+      POSTGRES_PASSWORD: strongpassword
     expose:
       - "5432"
     ports:
       - "5432:5432"
     networks:
       - microservices
-
-#  kafdrop:
-#    image: obsidiandynamics/kafdrop
-#    ports:
-#      - 9001:9000
-#    environment:
-#      - KAFKA_BROKERCONNECT=kafka:9092
-#    networks:
-#      - microservices
-#
-#  zookeeper:
-#    image: bitnami/zookeeper:latest
-#    ports:
-#      - "2181:2181"
-#    environment:
-#      - ALLOW_ANONYMOUS_LOGIN=yes
-#    networks:
-#      - microservices
-#
-#  kafka:
-#    image: bitnami/kafka:latest
-#    ports:
-#      - '9092:9092'
-#      - '9093:9093'
-#    environment:
-#      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-#      - ALLOW_PLAINTEXT_LISTENER=yes
-#      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
-#      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
-#      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
-#      - KAFKA_CFG_NUM_PARTITIONS=1
-#      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
-#    depends_on:
-#      - zookeeper
-#    networks:
-#      - microservices
 
 networks:
   microservices:
