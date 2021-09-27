@@ -41,11 +41,15 @@ Nesta seção são expostas as instruções para realização de cada uma das po
 ```
 #### Atualizar vendedor existente
 
-`POST /salesman/{id}`
+`PUT /salesman/{id}`
 
 ```json
 {
 	 "name": "Yuri Stapassoli",
 }
 ```
+
+#### Excluir vendedor
+
+`DEL /salesman/{id}`
 
